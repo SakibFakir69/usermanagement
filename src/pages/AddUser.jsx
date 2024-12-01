@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { MyContext } from "../Context/ContextApi";
+import js from "@eslint/js";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddUser() {
   const handelNewuser = (event) => {
@@ -11,37 +15,55 @@ function AddUser() {
     const gender = form.gender.value;
     const status = form.status.value;
     // checked
-    // value name 
+    // value name
 
-    const creatseUser = {name , email , gender , status};
+    const creatseUser = { name, email, gender, status };
     console.log(creatseUser);
 
+    if(name!==" " || email!==" ")
+    {
+        toast.success("Added Succesfully")
+    
+    }
+
+  
+
+    fetch(`http://localhost:5000/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(creatseUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   return (
     <div className="px-10 p-4">
-
-
-        
+      {/* add id  and / sweet2 */}
 
       <section>
-        <NavLink to={`/`}>All Users <i class="ri-account-pin-circle-line"></i></NavLink>
+        <NavLink to={`/`}>
+          All Users <i class="ri-account-pin-circle-line"></i>
+        </NavLink>
       </section>
+      <ToastContainer/>
 
       <section className="flex flex-col justify-center items-center border border-black gap-20">
-
         <div className="mt-4">
-
           <h2 className="text-4xl font-semibold">New user</h2>
-          <p className="text-xl text-gray-400">Use the below form to create a new account</p>
-
+          <p className="text-xl text-gray-400">
+            Use the below form to create a new account
+          </p>
         </div>
 
-        <div className="  border border-green-400 p-4 w-11/12">
-
+        <div className="  border border-green-400 p-4 w-11/12 overflow-auto scroll-auto">
           <form
             onSubmit={handelNewuser}
-            className="border flex flex-col w-full px-4 mb-4 "
+            className=" flex flex-col w-full px-4 mb-4 "
           >
             <label>
               <span>Name</span>
@@ -90,7 +112,6 @@ function AddUser() {
                       type="radio"
                       name="gender"
                       value="Female"
-
                       className="radio ml-4 checked:bg-blue-500"
                       defaultChecked
                     />
@@ -103,23 +124,23 @@ function AddUser() {
                   <p className="mt-2">Status</p>
 
                   <label className="label cursor-pointer">
-                    <span className="label-text ">Active</span>
+                    <span className="label-text ">Inactive</span>
 
                     <input
                       type="radio"
                       name="status"
-                      value="Active"
+                      value="active"
                       className="radio ml-4 checked:bg-red-500"
                       defaultChecked
                     />
                   </label>
 
                   <label className="label cursor-pointer">
-                    <span className="label-text">Inactive</span>
+                    <span className="label-text">Active</span>
                     <input
                       type="radio"
-                      name="staus"
-                      value="Inactive"
+                      name="status"
+                      value="inactive"
                       className="radio ml-4 checked:bg-blue-500"
                       defaultChecked
                     />

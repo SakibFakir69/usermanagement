@@ -4,6 +4,7 @@
 import React, { createContext, useState } from 'react'
 
 
+
 export const MyContext = createContext();
 
 
@@ -17,15 +18,9 @@ function ContextApi({children}) {
 
     // create user 
 
-    const handleNewuser = ()=>{
-
-        
-    }
-
-
 
     const authInfo = {
-        setloading , setuser , loading , user
+        setloading , setuser , loading , user,
 
     }
 
